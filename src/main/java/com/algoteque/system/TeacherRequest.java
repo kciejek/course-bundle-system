@@ -10,6 +10,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class TeacherRequest {
-    private final Map<String, String> topics; //TODO change key to TopicType
+    private final Map<String, Integer> topics; //TODO change key to TopicType
 
 }
