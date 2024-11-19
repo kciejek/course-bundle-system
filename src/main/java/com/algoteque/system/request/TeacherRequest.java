@@ -1,4 +1,4 @@
-package com.algoteque.system;
+package com.algoteque.system.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,5 +10,5 @@ import java.util.Map;
 @RequiredArgsConstructor
 @NoArgsConstructor(force = true)
 public class TeacherRequest {
-    private final Map<String, Integer> topics; //TODO change key to TopicType
+    private final Map<String, Integer> topics;
 }

@@ -1,5 +1,8 @@
-package com.algoteque.system;
+package com.algoteque.system.service;
 
+import com.algoteque.system.dao.ProvidersTopics;
+import com.algoteque.system.request.TeacherRequest;
+import com.algoteque.system.dao.CourseDAO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

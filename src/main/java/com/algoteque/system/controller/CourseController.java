@@ -1,5 +1,8 @@
-package com.algoteque.system;
+package com.algoteque.system.controller;
 
+import com.algoteque.system.service.CourseService;
+import com.algoteque.system.response.Quote;
+import com.algoteque.system.request.TeacherRequest;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

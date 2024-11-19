@@ -1,4 +1,4 @@
-package com.algoteque.system;
+package com.algoteque.system.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

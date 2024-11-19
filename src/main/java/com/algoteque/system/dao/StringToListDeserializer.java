@@ -1,4 +1,4 @@
-package com.algoteque.system;
+package com.algoteque.system.dao;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
