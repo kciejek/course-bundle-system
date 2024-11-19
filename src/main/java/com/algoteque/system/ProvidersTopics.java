@@ -1,10 +1,12 @@
 package com.algoteque.system;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
 import java.util.Map;
 
 @Getter
@@ -13,7 +15,8 @@ import java.util.Map;
 public class ProvidersTopics {
 
     @JsonProperty("provider_topics")
-    private final Map<String, String> providerTopics;
+    @JsonDeserialize(using = StringToListDeserializer.class)
+    private final Map<String, List<String>> providerTopics;
 
 
 }
