@@ -17,6 +17,4 @@ public class ProvidersTopics {
     @JsonProperty("provider_topics")
     @JsonDeserialize(using = StringToListDeserializer.class)
     private final Map<String, List<String>> providerTopics;
-
-
 }

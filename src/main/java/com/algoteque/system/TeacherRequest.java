@@ -11,5 +11,4 @@ import java.util.Map;
 @NoArgsConstructor(force = true)
 public class TeacherRequest {
     private final Map<String, Integer> topics; //TODO change key to TopicType
-
 }

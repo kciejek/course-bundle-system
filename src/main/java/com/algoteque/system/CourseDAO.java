@@ -13,8 +13,7 @@ public class CourseDAO {
         try {
             return objectMapper.readValue(
                     getClass().getClassLoader().getResourceAsStream("providers-topics.json"),
-                    ProvidersTopics.class
-            );
+                    ProvidersTopics.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
