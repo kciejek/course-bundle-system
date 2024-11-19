@@ -45,7 +45,28 @@ public class CourseController {
         //System.out.println("teacherRequests: " + teacherRequests); //pick top 3 requests
 
 
-
+        Map<String, List<Integer[]>> providerToRequest = new LinkedHashMap<>();
+        Set<String> teacherTopics = teacherRequests.keySet();
+        for (Map.Entry<String, List<String>> provider : providersTopics.getProviderTopics().entrySet()) {
+            for (String providerTopic : provider.getValue()) {
+                if (teacherTopics.contains(providerTopic)) {
+                    if (providerToRequest.containsKey(provider.getKey())) {
+                        List<Integer[]> requestValAndPriority = providerToRequest.get(provider.getKey());
+                        requestValAndPriority.add(teacherRequests.get(providerTopic));
+                    } else {
+                        providerToRequest.put(provider.getKey(),
+                                new ArrayList<>(Arrays.asList(new Integer[][]{teacherRequests.get(providerTopic)})));
+                    }
+                }
+            }
+        }
+        System.out.println("providerToRequest");
+        for (Map.Entry<String, List<Integer[]>> entry : providerToRequest.entrySet()) {
+            System.out.print(entry.getKey() + ": ");
+            for (Integer[] requestVal : entry.getValue()) {
+                System.out.println(Arrays.toString(requestVal));
+            }
+        }
 
       /*  Map<String, Integer[]> providerToRequest = new LinkedHashMap<>();
         Set<String> teacherTopics = teacherRequests.keySet();
