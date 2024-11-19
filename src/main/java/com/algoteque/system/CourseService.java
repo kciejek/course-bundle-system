@@ -1,6 +1,5 @@
 package com.algoteque.system;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
