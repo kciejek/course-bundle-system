@@ -56,30 +56,35 @@ public class CourseService {
 
     private Map<String, Double> getQuotesPerProvider(Map<String, List<Integer[]>> providerToRequest) {
         Map<String, Double> quotesPerProvider = new LinkedHashMap<>();
-        double quote = 0L;
         for (Map.Entry<String, List<Integer[]>> entry : providerToRequest.entrySet()) {
             if (entry.getValue().size() == 2) {
-                double topicOneLvl = entry.getValue().get(0)[0];
-                double topicTwoLvl = entry.getValue().get(1)[0];
-                quote = 0.1 * (topicOneLvl + topicTwoLvl);
-                quotesPerProvider.put(entry.getKey(), quote);
+                getQuoteIfTwoTopicsMatches(entry, quotesPerProvider);
             }
             if (entry.getValue().size() == 1) {
-                double topicLvlVal = entry.getValue().get(0)[0];
-                int topicLvlPrior = entry.getValue().get(0)[1];
-                if (topicLvlPrior == 1) {
-                    quote = 0.2 * topicLvlVal;
-                }
-                if (topicLvlPrior == 2) {
-                    quote = 0.25 * topicLvlVal;
-                }
-                if (topicLvlPrior == 3) {
-                    quote = 0.3 * topicLvlVal;
-                }
-                quotesPerProvider.put(entry.getKey(), quote);
+                getQuoteIfOneTopicMatch(entry, quotesPerProvider);
             }
         }
 
         return quotesPerProvider;
+    }
+
+    private static void getQuoteIfOneTopicMatch(Map.Entry<String, List<Integer[]>> entry,
+                                                Map<String, Double> quotesPerProvider) {
+        double topicLvlVal = entry.getValue().get(0)[0];
+        int topicLvlPrior = entry.getValue().get(0)[1];
+        double quote = 0L;
+        switch (topicLvlPrior) {
+            case 1 -> quote = 0.2 * topicLvlVal;
+            case 2 -> quote = 0.25 * topicLvlVal;
+            case 3 -> quote = 0.3 * topicLvlVal;
+        }
+        quotesPerProvider.put(entry.getKey(), quote);
+    }
+
+    private static void getQuoteIfTwoTopicsMatches(Map.Entry<String, List<Integer[]>> entry,
+                                                   Map<String, Double> quotesPerProvider) {
+        double topicLvlOne = entry.getValue().get(0)[0];
+        double topicLvlTwo = entry.getValue().get(1)[0];
+        quotesPerProvider.put(entry.getKey(), 0.1 * (topicLvlOne + topicLvlTwo));
     }
 }
