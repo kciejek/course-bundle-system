@@ -64,9 +64,44 @@ public class CourseController {
         for (Map.Entry<String, List<Integer[]>> entry : providerToRequest.entrySet()) {
             System.out.print(entry.getKey() + ": ");
             for (Integer[] requestVal : entry.getValue()) {
-                System.out.println(Arrays.toString(requestVal));
+                System.out.print(Arrays.toString(requestVal));
+            }
+            System.out.println();
+        }
+
+        Map<String, Double> quotesPerProvider = new LinkedHashMap<>();
+        double quote = 0L;
+        for (Map.Entry<String, List<Integer[]>> entry : providerToRequest.entrySet()) {
+            if (entry.getValue().size() == 2) {
+                double topicOneLvl = entry.getValue().get(0)[0];
+                double topicTwoLvl = entry.getValue().get(1)[0];
+                quote = 0.1 * (topicOneLvl + topicTwoLvl);
+                quotesPerProvider.put(entry.getKey(), quote);
+            }
+            if (entry.getValue().size() == 1) {
+                double topicLvlVal = entry.getValue().get(0)[0];
+                int topicLvlPrior = entry.getValue().get(0)[1];
+                if (topicLvlPrior == 1) {
+                    quote = 0.2 * topicLvlVal;
+                }
+                if (topicLvlPrior == 2) {
+                    quote = 0.25 * topicLvlVal;
+                }
+                if (topicLvlPrior == 3) {
+                    quote = 0.3 * topicLvlVal;
+                }
+                quotesPerProvider.put(entry.getKey(), quote);
             }
         }
+
+        System.out.println("quotesPerProvider");
+        for (Map.Entry<String, Double> entry : quotesPerProvider.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
+
+
+
+
 
       /*  Map<String, Integer[]> providerToRequest = new LinkedHashMap<>();
         Set<String> teacherTopics = teacherRequests.keySet();
@@ -85,11 +120,6 @@ public class CourseController {
                 }
             }
         }*/
-
-
-        Map<String, Integer> quotesPerProvider = new LinkedHashMap<>();
-        Map<String, List<String>> topicsPerProvider = new LinkedHashMap<>();
-        Integer quote = 0;
 
 
         return teacherRequest;
