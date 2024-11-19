@@ -40,18 +40,24 @@ public class CourseService {
         for (Map.Entry<String, List<String>> provider : providersTopics.getProviderTopics().entrySet()) {
             for (String providerTopic : provider.getValue()) {
                 if (teacherTopics.contains(providerTopic)) {
-                    if (providerToRequest.containsKey(provider.getKey())) {
-                        List<Integer[]> requestValAndPriority = providerToRequest.get(provider.getKey());
-                        requestValAndPriority.add(teacherRequests.get(providerTopic));
-                    } else {
-                        providerToRequest.put(provider.getKey(),
-                                new ArrayList<>(Arrays.asList(new Integer[][]{teacherRequests.get(providerTopic)})));
-                    }
+                    addProviderToRequestEntity(teacherRequests, provider, providerTopic, providerToRequest);
                 }
             }
         }
 
         return providerToRequest;
+    }
+
+    private static void addProviderToRequestEntity(LinkedHashMap<String, Integer[]> teacherRequests,
+                                                   Map.Entry<String, List<String>> provider, String providerTopic,
+                                                   Map<String, List<Integer[]>> providerToRequest) {
+        if (providerToRequest.containsKey(provider.getKey())) {
+            List<Integer[]> requestValAndPriority = providerToRequest.get(provider.getKey());
+            requestValAndPriority.add(teacherRequests.get(providerTopic));
+        } else {
+            providerToRequest.put(provider.getKey(),
+                    new ArrayList<>(Arrays.asList(new Integer[][]{teacherRequests.get(providerTopic)})));
+        }
     }
 
     private Map<String, Double> getQuotesPerProvider(Map<String, List<Integer[]>> providerToRequest) {
