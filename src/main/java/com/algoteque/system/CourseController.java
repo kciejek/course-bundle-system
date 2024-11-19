@@ -19,7 +19,7 @@ public class CourseController {
     //private final ProvidersTopics providersTopics;
 
     @PostMapping
-    public TeacherRequest sendTeacherRequest(@RequestBody TeacherRequest teacherRequest) throws IOException {
+    public List<Quote> sendTeacherRequest(@RequestBody TeacherRequest teacherRequest) throws IOException {
 
         ObjectMapper objectMapper = new ObjectMapper();
         ProvidersTopics providersTopics = objectMapper.readValue(
@@ -95,33 +95,17 @@ public class CourseController {
         }
 
         System.out.println("quotesPerProvider");
+        List<Quote> quotes = new ArrayList<>();
         for (Map.Entry<String, Double> entry : quotesPerProvider.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
+            quotes.add(new Quote(entry.getKey(), entry.getValue()));
         }
 
 
 
 
 
-      /*  Map<String, Integer[]> providerToRequest = new LinkedHashMap<>();
-        Set<String> teacherTopics = teacherRequests.keySet();
-        for (Map.Entry<String, List<String>> provider : providersTopics.getProviderTopics().entrySet()) {
-            for (String providerTopic : provider.getValue()) {
-                if (teacherTopics.contains(providerTopic)) {
-                    if (providerToRequest.containsKey(provider.getKey())) {
-                        Integer[] requestValAndPriority = providerToRequest.get(provider.getKey());
-                        requestValAndPriority
-                        newItem.put(teacherRequests.get(providerTopic), teacherRequests.get(providerTopic).get(0));
-                        providerToRequest.add(teacherRequests.get(providerTopic));
-                    } else {
-                        providerToRequest.put(provider.getKey(), new ArrayList<>(teacherRequests.get(providerTopic)));
-                    }
 
-                }
-            }
-        }*/
-
-
-        return teacherRequest;
+        return quotes;
     }
 }
